@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --clr-bg: #F5F0FF;
+      --clr-mist: #EDE5FF;
+      --clr-soft: #DCD0FF;
+      --clr-accent: #9D7FEA;
+      --clr-plum: #7C3AED;
+      --clr-ink: #2E1065;
+      --ff-display: 'Pacifico', cursive;
+      --ff-body: 'Quicksand', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--ff-body);
+      background: linear-gradient(145deg, var(--clr-bg) 0%, var(--clr-mist) 50%, var(--clr-soft) 100%);
+      color: var(--clr-ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── CELEBRATION BACKGROUND ANIMATION LAYER ── */
+    .animation-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .confetti {
+      position: absolute;
+      top: -20px;
+      border-radius: 3px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-container {
+      text-align: center;
+      z-index: 10;
+      padding: 2rem;
+      max-width: 600px;
+    }
+
+    .eyebrow {
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--clr-accent);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .heading {
+      font-family: var(--ff-display);
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      color: var(--clr-ink);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .subtext {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--clr-plum);
+      font-weight: 600;
+      margin-bottom: 3rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: linear-gradient(135deg, var(--clr-plum), var(--clr-accent));
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.3);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(124,58,237,0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="animation-container" id="confettiWrapper"></div>
+  
+  <main class="hero-container">
+   
+    <h1 class="heading">Happy Birthday!</h1>
+    <a href="story.html" class="btn-primary">Open Letter</a>
+  </main>
+
+  <script>
+    // Programmatic generation of elegant background shapes
+    const wrapper = document.getElementById('confettiWrapper');
+    const colors = ['#9D7FEA', '#C4B5FD', '#7C3AED', '#FFD0EC', '#DCD0FF'];
+    
+    for (let i = 0; i < 40; i++) {
+      const element = document.createElement('div');
+      element.classList.add('confetti');
+      
+      // Randomize style parameters
+      element.style.left = Math.random() * 100 + '%';
+      element.style.width = Math.random() * 8 + 6 + 'px';
+      element.style.height = Math.random() * 14 + 8 + 'px';
+      element.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      element.style.animationDuration = Math.random() * 3 + 3 + 's';
+      element.style.animationDelay = Math.random() * 4 + 's';
+      
+      wrapper.appendChild(element);
+    }
+  </script>
+</body>
+</html>

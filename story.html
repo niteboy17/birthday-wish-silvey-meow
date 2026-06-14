@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Story ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --clr-lavender-bg: #F3E8FF;
+      --clr-ink: #2E1065;
+      --clr-plum: #7C3AED;
+      --clr-accent: #9D7FEA;
+      --ff-display: 'Pacifico', cursive;
+      --ff-body: 'Quicksand', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--ff-body);
+      background-color: var(--clr-lavender-bg);
+      color: var(--clr-ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Bubble Container & Animation */
+    .bubbles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      /* Semi-transparent purple bubbles */
+      background: rgba(157, 127, 234, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 0; }
+      20% { opacity: 0.8; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    /* Content Styling */
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .letter-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: clamp(2rem, 5vw, 3.5rem);
+      max-width: 680px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(124,58,237,0.06), 0 0 0 1px rgba(196,181,253,0.2);
+      margin-bottom: 3rem;
+    }
+
+    .letter-heading {
+      font-family: var(--ff-display);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .typewriter-body {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: #4A3880;
+      white-space: pre-wrap;
+    }
+
+    .typewriter-body.typing::after {
+      content: '|';
+      animation: blink 0.75s step-end infinite;
+      color: var(--clr-plum);
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .question-block {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+
+    .question-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .question-text {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .btn-choice {
+      display: inline-block;
+      padding: 1rem 3rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--clr-plum), var(--clr-accent));
+      color: #fff;
+      border: none;
+      font-family: var(--ff-body);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(124,58,237,0.28);
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    
+    .btn-choice:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(124,58,237,0.38);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bubbles-container" id="bubbles"></div>
+
+  <div class="content-wrapper">
+    <main class="letter-card">
+      <h2 class="letter-heading">To Someone Special,</h2>
+      <div id="typewriter" class="typewriter-body typing"></div>
+    </main>
+
+    <section id="questionArea" class="question-block">
+      <p class="question-text">Ready to look back at some of our favorite memories?</p>
+      <a href="gallery.html" class="btn-choice">Yes, let's go!</a>
+    </section>
+  </div>
+
+  <script>
+    // Generate Bubbles
+    const container = document.getElementById('bubbles');
+    for (let i = 0; i < 20; i++) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      // Random size
+      const size = Math.random() * 50 + 20 + 'px';
+      bubble.style.width = size;
+      bubble.style.height = size;
+      // Random position
+      bubble.style.left = Math.random() * 100 + '%';
+      // Random duration and delay for staggered animation
+      bubble.style.animationDuration = (Math.random() * 8 + 6) + 's';
+      bubble.style.animationDelay = Math.random() * 5 + 's';
+      container.appendChild(bubble);
+    }
+
+    const message = "Today is all about celebrating you. Thank you for bringing so much light, happiness, and unforgettable moments into my life. Every single memory we share means the world to me.\n\nI put together some pictures of you and the moments that always make me smile when I look back on them. I hope they bring a smile to your face too.";
+    const speed = 10; 
+
+    let i = 0;
+    const txtContainer = document.getElementById("typewriter");
+    const questionArea = document.getElementById("questionArea");
+
+    function typeWriter() {
+      if (i < message.length) {
+        txtContainer.textContent += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      } else {
+        txtContainer.classList.remove("typing");
+        questionArea.classList.add("visible");
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", typeWriter);
+  </script>
+</body>
+</html>
